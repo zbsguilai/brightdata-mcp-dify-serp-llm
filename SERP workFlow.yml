@@ -1,0 +1,303 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: SERP工作流
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: idanvilenski/brightdata:0.1.0@70a92c2f3b90eeb225c3f350560d1112a6461c64126ee4eee25ac0d7572da03c
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.12@37699cc3d1ea9e006348a7273a514f3ddf60ffb0649dc735c594c8da6a80934b
+kind: app
+version: 0.3.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: tool
+      id: 1776009318728-source-1776009323487-target
+      source: '1776009318728'
+      sourceHandle: source
+      target: '1776009323487'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: tool
+        targetType: llm
+      id: 1776009323487-source-1776009333357-target
+      source: '1776009323487'
+      sourceHandle: source
+      target: '1776009333357'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: end
+      id: 1776009333357-source-1776009338320-target
+      source: '1776009333357'
+      sourceHandle: source
+      target: '1776009338320'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - label: input
+          max_length: 201
+          options: []
+          required: true
+          type: paragraph
+          variable: input
+      height: 89
+      id: '1776009318728'
+      position:
+        x: 78.97802228722924
+        y: 282
+      positionAbsolute:
+        x: 78.97802228722924
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_team_authorization: true
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: The search query to execute
+            ja_JP: The search query to execute
+            pt_BR: The search query to execute
+            zh_Hans: 要执行的搜索查询
+          label:
+            en_US: Search Query
+            ja_JP: Search Query
+            pt_BR: Search Query
+            zh_Hans: 搜索查询
+          llm_description: The search terms or question to search for. Should be a
+            clear, specific query.
+          max: null
+          min: null
+          name: query
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: google
+          form: form
+          human_description:
+            en_US: Which search engine to use
+            ja_JP: Which search engine to use
+            pt_BR: Which search engine to use
+            zh_Hans: 使用哪个搜索引擎
+          label:
+            en_US: Search Engine
+            ja_JP: Search Engine
+            pt_BR: Search Engine
+            zh_Hans: 搜索引擎
+          llm_description: The search engine to use. Choose 'google' for most comprehensive
+            results, 'bing' for Microsoft-focused results, or 'yandex' for Russian/Eastern
+            European focused results.
+          max: null
+          min: null
+          name: search_engine
+          options:
+          - icon: ''
+            label:
+              en_US: Google
+              ja_JP: Google
+              pt_BR: Google
+              zh_Hans: Google
+            value: google
+          - icon: ''
+            label:
+              en_US: Bing
+              ja_JP: Bing
+              pt_BR: Bing
+              zh_Hans: Bing
+            value: bing
+          - icon: ''
+            label:
+              en_US: Yandex
+              ja_JP: Yandex
+              pt_BR: Yandex
+              zh_Hans: Yandex
+            value: yandex
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: select
+        params:
+          query: ''
+          search_engine: ''
+        provider_id: idanvilenski/brightdata/brightdata
+        provider_name: idanvilenski/brightdata/brightdata
+        provider_type: builtin
+        selected: false
+        title: Search Engine
+        tool_configurations:
+          search_engine: google
+        tool_description: 从 Google、Bing 或 Yandex 抓取搜索结果。以 markdown 格式返回 SERP 结果。
+        tool_label: Search Engine
+        tool_name: search_engine
+        tool_parameters:
+          query:
+            type: mixed
+            value: '{{#1776009318728.input#}}'
+        type: tool
+      height: 89
+      id: '1776009323487'
+      position:
+        x: 384
+        y: 282
+      positionAbsolute:
+        x: 384
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1776009323487'
+          - text
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: dc8c3bf2-a2a7-48cf-9d0d-7de7dbacbc16
+          role: system
+          text: '{{#1776009323487.text#}}请将内容清洗结构化搜索结果，最终以训练数据集格式输出
+
+            '
+        selected: false
+        structured_output_enabled: true
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 89
+      id: '1776009333357'
+      position:
+        x: 689.0219777127708
+        y: 282
+      positionAbsolute:
+        x: 689.0219777127708
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1776009333357'
+          - text
+          value_type: string
+          variable: result
+        selected: true
+        title: 结束
+        type: end
+      height: 89
+      id: '1776009338320'
+      position:
+        x: 992
+        y: 282
+      positionAbsolute:
+        x: 992
+        y: 282
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -477.5912182345022
+      y: 185.73978662784543
+      zoom: 1.0022738236395494
